@@ -38,7 +38,7 @@
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
 
   /* BUTTONS */
-  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.6rem;border-radius:50px;font-size:.9rem;font-weight:700;transition:var(--trans);position:relative;overflow:hidden;letter-spacing:.01em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.6rem;border-radius:50px;font-size:.9rem;font-weight:700;transition:var(--trans);position:relative;overflow:hidden;letter-spacing:.01em;white-space:nowrap;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
   .btn:active{transform:scale(.97)!important}
   .btn .rpl{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rplAnim .6s linear;pointer-events:none}
   @keyframes rplAnim{to{transform:scale(4);opacity:0}}
