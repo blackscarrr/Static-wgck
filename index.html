@@ -38,7 +38,7 @@
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
 
   /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.6rem;border-radius:50px;font-size:.9rem;font-weight:700;transition:var(--trans);position:relative;overflow:hidden;letter-spacing:.01em;white-space:nowrap;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.6rem;border-radius:50px;font-size:.9rem;font-weight:700;transition:var(--trans);position:relative;overflow:hidden;letter-spacing:.01em;white-space:nowrap;touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer;pointer-events:auto;user-select:none;-webkit-user-select:none;}
   .btn:active{transform:scale(.97)!important}
   .btn .rpl{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rplAnim .6s linear;pointer-events:none}
   @keyframes rplAnim{to{transform:scale(4);opacity:0}}
@@ -69,19 +69,26 @@
   .nav-links a:hover{color:var(--g1)}
   .nav-links a:hover::after,.nav-links a.ac::after{left:16px;right:16px}
   .nav-links a.ac{color:var(--g1)}
-  .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;cursor:pointer;border-radius:8px;transition:var(--trans)}
+  .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;cursor:pointer;border-radius:8px;transition:var(--trans);-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
   .hamburger:hover{background:var(--g5)}
   .hamburger span{display:block;width:24px;height:2.5px;background:var(--g1);border-radius:2px;transition:var(--trans)}
   .hamburger.op span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
   .hamburger.op span:nth-child(2){opacity:0;transform:scaleX(0)}
   .hamburger.op span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
-  .mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(13,27,18,.6);backdrop-filter:blur(4px);z-index:999;opacity:0;transition:opacity .3s}
-  .mob-nav.op{opacity:1}
+
+  /* =====================================================================
+     BUG FIX 1 — CRITICAL: pointer-events:none prevents the invisible
+     mob-nav overlay from swallowing all touch/click events on the page.
+     Without this, every tap on mobile hits the overlay first and the
+     underlying buttons never fire.
+     ===================================================================== */
+  .mob-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(13,27,18,.6);backdrop-filter:blur(4px);z-index:999;opacity:0;pointer-events:none;transition:opacity .3s}
+  .mob-nav.op{opacity:1;pointer-events:auto;}
   .mob-panel{position:absolute;top:0;right:0;width:min(320px,90vw);height:100%;background:var(--cream);padding:2rem 1.5rem;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto}
   .mob-nav.op .mob-panel{transform:none}
   .mob-links{list-style:none;margin-top:1rem}
   .mob-links li{border-bottom:1px solid var(--border2)}
-  .mob-links a{display:flex;align-items:center;gap:.75rem;padding:1rem .5rem;font-size:1rem;font-weight:600;color:var(--ink);cursor:pointer;transition:var(--trans);border-radius:8px}
+  .mob-links a{display:flex;align-items:center;gap:.75rem;padding:1rem .5rem;font-size:1rem;font-weight:600;color:var(--ink);cursor:pointer;transition:var(--trans);border-radius:8px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
   .mob-links a:hover{color:var(--g1);padding-left:1rem}
   .mob-links a i{font-size:1.25rem;color:var(--g3);width:24px}
 
@@ -191,7 +198,7 @@
   .val-row p{font-size:.84rem;color:var(--slate);margin:0;line-height:1.6}
   .pastor-card{background:white;border-radius:var(--r3);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);transition:var(--trans)}
   .pastor-card:hover{box-shadow:var(--shadow-xl);transform:translateY(-4px)}
-  .pastor-img{height:290px;background:linear-gradient(135deg,var(--g2),var(--g1));display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden}
+  .pastor-img{height:290px;background-image:url('Resources/Images/WhatsApp Image 2026-03-18 at 11.38.23.jpeg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden}
   .pastor-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,var(--g1),transparent)}
   .pastor-body{padding:2rem}
   .pastor-body h3{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--g1);margin-bottom:.2rem}
@@ -209,11 +216,15 @@
   .ser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
   .ser-card{background:white;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:var(--trans)}
   .ser-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
-  .ser-thumb{height:185px;background:linear-gradient(135deg,var(--g2),var(--g1));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .ser-thumb{height:185px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
   .ser-thumb::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.4))}
   .play-btn{width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--g1);box-shadow:0 4px 20px rgba(0,0,0,.25);transition:var(--trans);z-index:1;cursor:pointer}
   .play-btn:hover{transform:scale(1.12);background:var(--gold);color:var(--g1)}
-  .ser-badge{position:absolute;top:14px;left:14px;z-index:1;background:var(--gold);color:var(--g1);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .75rem;border-radius:50px;display:flex;align-items:center;gap:.3rem}
+  .yt-embed{width:100%;height:185px;border-radius:var(--r2);}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:2.5rem;}
+  .gal-img{border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow-md);transition:var(--trans);cursor:pointer;}
+  .gal-img:hover{transform:scale(1.02);box-shadow:var(--shadow-lg);}
+  .gal-cap{padding:.75rem 1rem;background:var(--cream);border-top:1px solid var(--border);font-size:.85rem;color:var(--slate);}
   .ser-body{padding:1.5rem}
   .ser-meta{display:flex;gap:.85rem;margin-bottom:.75rem;flex-wrap:wrap}
   .ser-meta span{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:.3rem;font-weight:600}
@@ -296,7 +307,7 @@
   .ccard h4{font-size:.88rem;font-weight:700;margin-bottom:.2rem}
   .ccard p{font-size:.84rem;color:var(--slate);line-height:1.6}
   .soc-row{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.5rem}
-  .soc-btn{display:flex;align-items:center;gap:.55rem;padding:.55rem 1.1rem;border-radius:50px;border:1.5px solid var(--border);background:white;font-size:.84rem;font-weight:700;cursor:pointer;transition:var(--trans);color:var(--slate)}
+  .soc-btn{display:flex;align-items:center;gap:.55rem;padding:.55rem 1.1rem;border-radius:50px;border:1.5px solid var(--border);background:white;font-size:.84rem;font-weight:700;cursor:pointer;transition:var(--trans);color:var(--slate);touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
   .soc-btn i{font-size:1.1rem}
   .soc-btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
   .soc-btn.fb:hover{border-color:#1877F2;color:#1877F2;background:#f0f5ff}
@@ -312,7 +323,7 @@
   .fr2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   .fg{margin-bottom:1.1rem}
   .fg label{display:block;font-size:.82rem;font-weight:700;margin-bottom:.45rem}
-  .fg input,.fg textarea,.fg select{width:100%;padding:.75rem 1rem;border-radius:var(--r);font-family:inherit;border:1.5px solid var(--border);background:var(--cream);font-size:.9rem;color:var(--ink);transition:var(--trans);outline:none;appearance:none}
+  .fg input,.fg textarea,.fg select{width:100%;padding:.75rem 1rem;border-radius:var(--r);font-family:inherit;border:1.5px solid var(--border);background:var(--cream);font-size:.9rem;color:var(--ink);transition:var(--trans);outline:none;appearance:none;-webkit-appearance:none;}
   .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--g3);background:white;box-shadow:0 0 0 3px rgba(64,145,108,.12)}
   .fg textarea{resize:vertical;min-height:115px}
   .fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
@@ -375,7 +386,10 @@
   @media(max-width:768px){
     .nav-links,.nav-cta-d{display:none}
     .hamburger{display:flex}
-    .mob-nav{display:block}
+    /* BUG FIX 1 (continued): display:block is needed so the panel can
+       slide in, but pointer-events:none keeps it from swallowing taps
+       when the menu is closed. pointer-events:auto is restored by .mob-nav.op */
+    .mob-nav{display:block;pointer-events:none}
     .ser-grid{grid-template-columns:1fr}
     .min-grid{grid-template-columns:1fr}
     .ch-grid{grid-template-columns:1fr 1fr}
@@ -394,6 +408,35 @@
     .ldrs{grid-template-columns:repeat(2,1fr)}
     .sstat .num{font-size:1.8rem}
   }
+
+  /* EVENT NOTICE BOARD */
+  .ev-notice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
+  .ev-notice{background:white;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:var(--trans);display:flex;flex-direction:column}
+  .ev-notice:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--g4)}
+  .evn-poster{height:200px;position:relative;overflow:hidden;flex-shrink:0}
+  .evn-poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .ev-notice:hover .evn-poster img{transform:scale(1.05)}
+  .evn-poster-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--g5),var(--g6));color:var(--g3);gap:.5rem}
+  .evn-poster-ph i{font-size:3.5rem}
+  .evn-poster-ph span{font-size:.72rem;font-weight:800;color:var(--g2);text-transform:uppercase;letter-spacing:.1em}
+  .evn-poster-gold{background:linear-gradient(135deg,var(--gold3),#fff8d4)!important;color:var(--gold)!important}
+  .evn-poster-gold span{color:#7a5015!important}
+  .evn-day-badge{position:absolute;top:.85rem;left:.85rem;border-radius:12px;padding:.55rem .8rem;text-align:center;box-shadow:var(--shadow-md);background:var(--g1);color:white;min-width:56px}
+  .evn-day-badge .day{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;line-height:1}
+  .evn-day-badge .freq{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold2);margin-top:.1rem}
+  .evn-day-badge.gd{background:var(--gold)}
+  .evn-day-badge.gd .freq{color:var(--g1)}
+  .evn-body{padding:1.3rem 1.4rem;display:flex;flex-direction:column;flex:1}
+  .evn-body h3{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.55rem;line-height:1.35}
+  .evn-desc{font-size:.86rem;color:var(--slate);line-height:1.7;margin-bottom:.85rem;flex:1}
+  .evn-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border2)}
+  .evn-tba{font-size:.78rem;color:var(--muted);font-weight:600}
+  /* MAP EMBED */
+  .map-embed{margin-top:1.5rem;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+  .map-open-link{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;font-size:.82rem;font-weight:700;color:var(--g2);background:var(--g6);transition:var(--trans)}
+  .map-open-link:hover{background:var(--g5);color:var(--g1)}
+  .map-open-link i{font-size:1rem}
+  @media(max-width:600px){.ev-notice-grid{grid-template-columns:1fr}.evn-poster{height:170px}}
   </style>
 </head>
 <body>
@@ -433,7 +476,7 @@
       <li><a onclick="gm('about')"><i class='bx bxs-book-open'></i>About Us</a></li>
       <li><a onclick="gm('sermons')"><i class='bx bxs-microphone'></i>Sermons &amp; Media</a></li>
       <li><a onclick="gm('events')"><i class='bx bxs-calendar-event'></i>Events &amp; Programs</a></li>
-      <li><a onclick="gm('school')"><i class='bx bxs-graduation'></i>Bishop S. Kiguru Academy</a></li>
+      <li><a onclick="gm('school')"><i class='bx bxs-graduation'></i>Bishop Makunyi Academy</a></li>
       <li><a onclick="gm('contact')"><i class='bx bxs-map-pin'></i>Contact Us</a></li>
     </ul>
     <div style="margin-top:2rem;">
@@ -468,7 +511,7 @@
         <div class="hcard ft reveal"><div class="hc-ico"><i class='bx bxs-calendar-check'></i></div><div><h3>Join Us This Sunday</h3><p>Main Worship Service — 9:00 AM · Everyone welcome</p></div></div>
         <div class="hcard reveal d1"><div class="hc-ico"><i class='bx bxs-bible'></i></div><div><h3>Midweek Bible Study</h3><p>Every Wednesday · 6:30 PM</p></div></div>
         <div class="hcard reveal d2"><div class="hc-ico"><i class='bx bxs-hand'></i></div><div><h3>Prayer &amp; Fasting</h3><p>Every Tuesday · 6:00 AM</p></div></div>
-        <div class="hcard sc reveal d3" onclick="showPage('school')"><div class="hc-ico"><i class='bx bxs-graduation'></i></div><div><h3>Bishop S. Kiguru Academy</h3><p>Quality Christian education · Now enrolling</p></div></div>
+        <div class="hcard sc reveal d3" onclick="showPage('school')"><div class="hc-ico"><i class='bx bxs-graduation'></i></div><div><h3>Bishop Makunyi Academy</h3><p>Quality Christian education · Now enrolling</p></div></div>
       </div>
     </div>
   </section>
@@ -480,13 +523,13 @@
       <div class="t-item"><i class='bx bxs-bible'></i>Wednesday Bible Study 6:30 PM</div>
       <div class="t-item"><i class='bx bxs-hand'></i>Tuesday Prayer &amp; Fasting 6:00 AM</div>
       <div class="t-item"><i class='bx bxs-group'></i>Friday Youth Fellowship 4:30 PM</div>
-      <div class="t-item"><i class='bx bxs-graduation'></i>Bishop S. Kiguru Academy — Now Enrolling!</div>
+      <div class="t-item"><i class='bx bxs-graduation'></i>Bishop Makunyi Academy — Now Enrolling!</div>
       <div class="t-item"><i class='bx bxs-map-pin'></i>Located in Dandora, Nairobi</div>
       <div class="t-item"><i class='bx bxs-sun'></i>Sunday Service 9:00 AM – 12:30 PM</div>
       <div class="t-item"><i class='bx bxs-bible'></i>Wednesday Bible Study 6:30 PM</div>
       <div class="t-item"><i class='bx bxs-hand'></i>Tuesday Prayer &amp; Fasting 6:00 AM</div>
       <div class="t-item"><i class='bx bxs-group'></i>Friday Youth Fellowship 4:30 PM</div>
-      <div class="t-item"><i class='bx bxs-graduation'></i>Bishop S. Kiguru Academy — Now Enrolling!</div>
+      <div class="t-item"><i class='bx bxs-graduation'></i>Bishop Makunyi Academy — Now Enrolling!</div>
       <div class="t-item"><i class='bx bxs-map-pin'></i>Located in Dandora, Nairobi</div>
     </div>
   </div>
@@ -498,8 +541,8 @@
         <div class="rev-l">
           <span class="sec-lbl"><i class='bx bxs-church'></i>Who We Are</span>
           <h2 class="sec-title">A Community Rooted in Faith &amp; Purpose</h2>
-          <p class="sec-desc">Fountain of Life Worship Center is a branch of the Worldwide Gospel Churches of Kenya, led by Bishop S. Kiguru. We spread the Good News in Dandora through worship, discipleship, and community outreach.</p>
-          <p class="sec-desc" style="margin-top:.85rem;">We also run <strong>Bishop S. Kiguru Academy</strong> — a Christian school offering quality education from Pre-Primary to Secondary level right here in Dandora.</p>
+          <p class="sec-desc">Fountain of Life Worship Center is a branch of the Worldwide Gospel Churches of Kenya, led by Reverend Stephen Waithaka. We spread the Good News in Dandora through worship, discipleship, and community outreach.</p>
+          <p class="sec-desc" style="margin-top:.85rem;">We also run <strong>Bishop Makunyi Academy</strong> — a Christian school offering quality education from Pre-Primary level right here in Dandora.</p>
           <div style="display:flex;gap:.75rem;margin-top:2rem;flex-wrap:wrap;">
             <button class="btn btn-p" onclick="showPage('about')"><i class='bx bx-right-arrow-alt'></i>Our Story</button>
             <button class="btn btn-o" onclick="showPage('school')"><i class='bx bxs-graduation'></i>Our School</button>
@@ -507,7 +550,7 @@
         </div>
         <div class="rev-r">
           <div class="stats-row">
-            <div class="stat-box reveal d1"><i class='bx bxs-church'></i><div class="sn"><span class="cnt" data-t="15">0</span><span class="su">+</span></div><div class="sl">Years of Ministry</div></div>
+            <div class="stat-box reveal d1"><i class='bx bxs-church'></i><div class="sn"><span class="cnt" data-t="10">0</span><span class="su">+</span></div><div class="sl">Years of Ministry</div></div>
             <div class="stat-box gd reveal d2"><i class='bx bxs-group'></i><div class="sn"><span class="cnt" data-t="500">0</span><span class="su">+</span></div><div class="sl">Church Members</div></div>
             <div class="stat-box gd reveal d3"><i class='bx bxs-graduation'></i><div class="sn"><span class="cnt" data-t="200">0</span><span class="su">+</span></div><div class="sl">School Students</div></div>
             <div class="stat-box reveal d4"><i class='bx bxs-heart'></i><div class="sn"><span class="cnt" data-t="7">0</span></div><div class="sl">Active Ministries</div></div>
@@ -527,11 +570,11 @@
       </div>
       <div class="min-grid">
         <div class="min-card reveal d1"><div class="mc-ico"><i class='bx bxs-baby-carriage'></i></div><h3>Children's Ministry</h3><p>Fun, safe, Bible-based programs for children every Sunday — building faith from an early age.</p><span class="mc-lnk">Learn more <i class='bx bx-right-arrow-alt'></i></span></div>
-        <div class="min-card reveal d2"><div class="mc-ico"><i class='bx bxs-flame'></i></div><h3>Youth &amp; Young Adults</h3><p>Vibrant fellowship, discipleship, and outreach for the next generation. YALI meetings every Friday.</p><span class="mc-lnk">Learn more <i class='bx bx-right-arrow-alt'></i></span></div>
+        <div class="min-card reveal d2"><div class="mc-ico"><i class='bx bxs-flame'></i></div><h3>Youth &amp; Young Adults</h3><p>Vibrant fellowship, discipleship, and outreach for the next generation. Meetings every Friday.</p><span class="mc-lnk">Learn more <i class='bx bx-right-arrow-alt'></i></span></div>
         <div class="min-card reveal d3"><div class="mc-ico"><i class='bx bxs-home-heart'></i></div><h3>Family &amp; Marriage</h3><p>Building strong, Christ-centred homes through workshops, mentorship, and pastoral counselling.</p><span class="mc-lnk">Learn more <i class='bx bx-right-arrow-alt'></i></span></div>
         <div class="min-card reveal d1"><div class="mc-ico"><i class='bx bxs-music'></i></div><h3>Worship &amp; Arts</h3><p>Anointed praise and worship leading the congregation into God's presence every service.</p><span class="mc-lnk">Learn more <i class='bx bx-right-arrow-alt'></i></span></div>
         <div class="min-card reveal d2"><div class="mc-ico"><i class='bx bxs-globe'></i></div><h3>Community Outreach</h3><p>Food drives, home visits, and evangelism in Dandora — putting faith into action.</p><span class="mc-lnk">Learn more <i class='bx bx-right-arrow-alt'></i></span></div>
-        <div class="min-card reveal d3" onclick="showPage('school')" style="cursor:pointer;"><div class="mc-ico"><i class='bx bxs-graduation'></i></div><h3>Bishop S. Kiguru Academy</h3><p>Quality Christian education from PP1 to Form 4. Now enrolling for the new term!</p><span class="mc-lnk">View School <i class='bx bx-right-arrow-alt'></i></span></div>
+        <div class="min-card reveal d3" onclick="showPage('school')" style="cursor:pointer;"><div class="mc-ico"><i class='bx bxs-graduation'></i></div><h3>Bishop Makunyi Academy</h3><p>Quality Christian education from PP1. Now enrolling for the new term!</p><span class="mc-lnk">View School <i class='bx bx-right-arrow-alt'></i></span></div>
       </div>
     </div>
   </section>
@@ -560,7 +603,7 @@
         <h2 class="sec-title">From a Small Gathering to a Growing Ministry</h2>
         <div class="ab-text">
           <p>Fountain of Life Worship Center – Dandora was founded under the <strong>Worldwide Gospel Churches of Kenya (WGCK)</strong> banner, a Pentecostal-rooted denomination committed to Spirit-filled worship and community transformation across Kenya.</p>
-          <p>Under the visionary leadership of <strong>Bishop S. Kiguru</strong>, the church has grown from a small prayer group in Dandora to a vibrant congregation touching hundreds of lives every week.</p>
+          <p>Under the visionary leadership of <strong>Bishop Dr. Eliud Makunyi</strong>, the church has grown from a small prayer group in Dandora to a vibrant congregation touching hundreds of lives every week.</p>
           <p>We believe in the authority of the Bible, the power of the Holy Spirit, and the necessity of making disciples. Our doors are open to all.</p>
         </div>
         <div class="val-list">
@@ -572,12 +615,12 @@
       </div>
       <div class="rev-r">
         <div class="pastor-card">
-          <div class="pastor-img">👤</div>
+          <div class="pastor-img"><!-- Pastor photo --></div>
           <div class="pastor-body">
-            <h3>Bishop S. Kiguru</h3>
-            <div class="p-role"><i class='bx bxs-star'></i>Senior Pastor &amp; Founder</div>
-            <p>Bishop S. Kiguru is a passionate man of God called to serve the body of Christ in Dandora and beyond. With years of dedicated ministry, he shepherds the congregation with wisdom and unwavering faith.</p>
-            <p>He is also the founder of Bishop S. Kiguru Academy, believing education is central to transforming the next generation.</p>
+            <h3>Rev. Stephen Waithaka</h3>
+            <div class="p-role"><i class='bx bxs-star'></i>Senior Pastor &amp; Church Head</div>
+            <p>Bishop Dr. Eliud Makunyi is a passionate man of God called to serve the body of Christ in Dandora and beyond. With years of dedicated ministry, he shepherds the congregation with wisdom and unwavering faith.</p>
+            <p>He is also the founder of Bishop Makunyi Academy, believing education is central to transforming the next generation.</p>
             <div class="p-quote">"Faith without works is dead — we preach the Word and serve our community with our hands."</div>
             <div style="margin-top:1.25rem;display:flex;gap:.6rem;flex-wrap:wrap;">
               <button class="btn btn-p btn-sm" onclick="showPage('contact')"><i class='bx bx-envelope'></i>Contact Bishop</button>
@@ -591,12 +634,12 @@
     <div style="margin-top:4.5rem;">
       <div class="tc reveal"><span class="sec-lbl"><i class='bx bxs-user-badge'></i>Leadership Team</span><h2 class="sec-title">Serving Together</h2></div>
       <div class="ldrs">
-        <div class="ldr reveal d1"><div class="ldr-av"><i class='bx bxs-user'></i></div><h4>Pastor [Name]</h4><span>Associate Pastor</span></div>
-        <div class="ldr reveal d2"><div class="ldr-av"><i class='bx bxs-user'></i></div><h4>Mama [Name]</h4><span>Women's Ministry</span></div>
-        <div class="ldr reveal d3"><div class="ldr-av"><i class='bx bxs-music'></i></div><h4>[Name]</h4><span>Worship Leader</span></div>
-        <div class="ldr reveal d4"><div class="ldr-av"><i class='bx bxs-flame'></i></div><h4>[Name]</h4><span>Youth Leader</span></div>
-        <div class="ldr reveal d5"><div class="ldr-av"><i class='bx bxs-baby-carriage'></i></div><h4>[Name]</h4><span>Children's Ministry</span></div>
-        <div class="ldr reveal d1"><div class="ldr-av"><i class='bx bxs-globe'></i></div><h4>[Name]</h4><span>Outreach</span></div>
+        <div class="ldr reveal d1"><div class="ldr-av"><i class='bx bxs-user-circle'></i></div><h4>Pastor Jane Muthoni</h4><span>Associate Pastor</span></div>
+        <div class="ldr reveal d2"><div class="ldr-av"><i class='bx bxs-user-circle'></i></div><h4>Elder Cathrine Maina</h4><span>Women's Ministry</span></div>
+        <div class="ldr reveal d3"><div class="ldr-av"><i class='bx bxs-music'></i></div><h4>Bro. Francis Mwangi</h4><span>Worship Leader</span></div>
+        <div class="ldr reveal d4"><div class="ldr-av"><i class='bx bxs-flame'></i></div><h4>Sis. Purity Nyambura</h4><span>Youth Leader</span></div>
+        <div class="ldr reveal d5"><div class="ldr-av"><i class='bx bxs-baby-carriage'></i></div><h4>Bro. Martin Karenga</h4><span>Children's Ministry</span></div>
+        <div class="ldr reveal d1"><div class="ldr-av"><i class='bx bxs-globe'></i></div><h4>Bro. Charles Kyalo</h4><span>Outreach Coordinator</span></div>
       </div>
       <p class="note tc" style="margin-top:1rem;">⚠️ Replace [Name] with actual leadership names, roles, and photos.</p>
     </div>
@@ -614,16 +657,15 @@
     <h2 class="sec-title">Recent Sermons</h2>
     <div class="ser-grid">
       <div class="ser-card reveal d1">
-        <div class="ser-thumb"><div class="ser-badge"><i class='bx bxs-video'></i>Video</div><div class="play-btn" onclick="showToast('🎬 Opening sermon...')"><i class='bx bx-play'></i></div></div>
+        <iframe class="yt-embed" src="https://www.youtube.com/embed/1GmNxSwwrdU" title="Walking in the Power of the Holy Spirit" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="ser-body">
-          <div class="ser-meta"><span><i class='bx bx-calendar'></i>[Date]</span><span><i class='bx bx-user'></i>Bishop S. Kiguru</span></div>
+          <div class="ser-meta"><span><i class='bx bx-calendar'></i>Mar 18</span><span><i class='bx bx-user'></i>Bishop S. Kiguru</span></div>
           <h3>Walking in the Power of the Holy Spirit</h3>
           <p>A powerful message on how every believer can live a Spirit-empowered life daily…</p>
-          <span class="ser-lnk" onclick="showToast('Opening sermon...')">Watch Now <i class='bx bx-right-arrow-alt'></i></span>
         </div>
       </div>
       <div class="ser-card reveal d2">
-        <div class="ser-thumb" style="background:linear-gradient(135deg,#7a5015,#D4A017);"><div class="ser-badge"><i class='bx bxs-microphone'></i>Audio</div><div class="play-btn" onclick="showToast('🎵 Playing audio sermon...')"><i class='bx bx-play'></i></div></div>
+        <iframe class="yt-embed" src="https://www.youtube.com/embed/i0ei_xjiG3s" title="Faith That Moves Mountains" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="ser-body">
           <div class="ser-meta"><span><i class='bx bx-calendar'></i>[Date]</span><span><i class='bx bx-user'></i>Bishop S. Kiguru</span></div>
           <h3>Faith That Moves Mountains</h3>
@@ -632,7 +674,7 @@
         </div>
       </div>
       <div class="ser-card reveal d3">
-        <div class="ser-thumb" style="background:linear-gradient(135deg,#3D1C72,#7B4397);"><div class="ser-badge"><i class='bx bxs-video'></i>Video</div><div class="play-btn" onclick="showToast('🎬 Opening sermon...')"><i class='bx bx-play'></i></div></div>
+        <iframe class="yt-embed" src="https://www.youtube.com/embed/GljM2NVD8yE" title="The Purpose-Driven Family" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="ser-body">
           <div class="ser-meta"><span><i class='bx bx-calendar'></i>[Date]</span><span><i class='bx bx-user'></i>Guest Speaker</span></div>
           <h3>The Purpose-Driven Family</h3>
@@ -646,10 +688,10 @@
     <div style="margin-top:4.5rem;">
       <div class="tc reveal"><span class="sec-lbl"><i class='bx bxl-youtube'></i>Find Us Online</span><h2 class="sec-title">Follow Our Channels</h2></div>
       <div class="ch-grid">
-        <div class="ch-card yt reveal d1" onclick="showToast('Opening YouTube channel...')"><div class="ch-ico"><i class='bx bxl-youtube'></i></div><h4>YouTube</h4><p>Live streams &amp; recordings</p></div>
-        <div class="ch-card fb reveal d2" onclick="showToast('Opening Facebook page...')"><div class="ch-ico"><i class='bx bxl-facebook-circle'></i></div><h4>Facebook</h4><p>Updates &amp; live services</p></div>
-        <div class="ch-card wa reveal d3" onclick="showToast('Opening WhatsApp...')"><div class="ch-ico"><i class='bx bxl-whatsapp'></i></div><h4>WhatsApp</h4><p>Church broadcast group</p></div>
-        <div class="ch-card pod reveal d4" onclick="showToast('Opening Podcast...')"><div class="ch-ico"><i class='bx bxs-podcast'></i></div><h4>Podcast</h4><p>Sermons on the go</p></div>
+        <a href="https://www.youtube.com/@wgckburuburu" target="_blank" class="ch-card yt reveal d1"><div class="ch-ico"><i class='bx bxl-youtube'></i></div><h4>YouTube</h4><p>Live streams &amp; recordings</p></a>
+        <a href="https://www.facebook.com" target="_blank" class="ch-card fb reveal d2"><div class="ch-ico"><i class='bx bxl-facebook-circle'></i></div><h4>Facebook</h4><p>Updates &amp; live services</p></a>
+        <a href="https://wa.me/+254712345678" target="_blank" class="ch-card wa reveal d3"><div class="ch-ico"><i class='bx bxl-whatsapp'></i></div><h4>WhatsApp</h4><p>Church broadcast group</p></a>
+        <a href="https://open.spotify.com" target="_blank" class="ch-card pod reveal d4"><div class="ch-ico"><i class='bx bxs-podcast'></i></div><h4>Podcast</h4><p>Sermons on the go</p></a>
       </div>
       <p class="note">⚠️ Add actual social media links to each card.</p>
     </div>
@@ -660,52 +702,128 @@
 <div class="page" id="page-events">
   <div class="ph"><div class="ph-in">
     <div class="breadcrumb"><a onclick="showPage('home')">Home</a><i class='bx bx-chevron-right'></i><span>Events &amp; Programs</span></div>
-    <h1>Events &amp; Programs</h1><p>Join us for worship, fellowship, and community activities</p>
+    <h1>Events &amp; Programs</h1><p>Your church notice board — services, programs &amp; upcoming events</p>
   </div></div>
   <section class="section"><div class="sec-in">
     <span class="sec-lbl"><i class='bx bxs-calendar'></i>Regular Programs</span>
     <h2 class="sec-title">Weekly Schedule</h2>
-    <div class="ev-stack">
-      <div class="ev-card reveal">
-        <div class="ev-date"><div class="day">SUN</div><div class="mon">Weekly</div></div>
-        <div class="ev-info"><h3>Main Sunday Worship Service</h3><p>Praise, worship, and God's Word. Sunday School for all ages included.</p><div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>9:00 AM – 12:30 PM</span><span class="etag"><i class='bx bxs-map-pin'></i>Main Hall</span><span class="etag gd"><i class='bx bxs-group'></i>All Welcome</span></div></div>
-        <div class="ev-cta"><button class="btn btn-p btn-sm" onclick="showToast('📅 See you Sunday!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+    <p class="sec-desc" style="margin-bottom:2rem;">Our doors are open every week. Find the program that fits your season and come as you are.</p>
+    <div class="ev-notice-grid">
+
+      <div class="ev-notice reveal d1">
+        <div class="evn-poster">
+          <img src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.22.jpeg" alt="Sunday Worship Service">
+          <div class="evn-day-badge"><div class="day">SUN</div><div class="freq">Weekly</div></div>
+        </div>
+        <div class="evn-body">
+          <h3>Main Sunday Worship Service</h3>
+          <p class="evn-desc">Our flagship weekly gathering — Spirit-filled praise, anointed preaching, and Sunday School for all ages. Bring your family, invite a neighbour, and expect to encounter God. Tea fellowship after service.</p>
+          <div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>9:00 AM – 12:30 PM</span><span class="etag"><i class='bx bxs-map-pin'></i>Main Sanctuary</span><span class="etag gd"><i class='bx bxs-group'></i>All Welcome</span></div>
+          <div class="evn-footer"><button class="btn btn-p btn-sm" onclick="showToast('See you Sunday at 9 AM!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+        </div>
       </div>
-      <div class="ev-card reveal d1">
-        <div class="ev-date" style="background:var(--g2);"><div class="day">TUE</div><div class="mon">Weekly</div></div>
-        <div class="ev-info"><h3>Early Morning Prayer &amp; Fasting</h3><p>Powerful intercessory prayer open to all members and visitors.</p><div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>6:00 AM</span><span class="etag gd"><i class='bx bxs-hand'></i>All Welcome</span></div></div>
-        <div class="ev-cta"><button class="btn btn-p btn-sm" onclick="showToast('🙏 See you Tuesday!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+
+      <div class="ev-notice reveal d2">
+        <div class="evn-poster">
+          <img src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.27.jpeg" alt="Prayer and Fasting">
+          <div class="evn-day-badge" style="background:var(--g2);"><div class="day">TUE</div><div class="freq">Weekly</div></div>
+        </div>
+        <div class="evn-body">
+          <h3>Early Morning Prayer &amp; Fasting</h3>
+          <p class="evn-desc">Start your week in God's presence. Our intercessory prayer meeting covers the church, families, nation, and individual needs. Come hungry in faith and leave strengthened. Open to all members and visitors.</p>
+          <div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>6:00 AM</span><span class="etag"><i class='bx bxs-map-pin'></i>Prayer Room</span><span class="etag gd"><i class='bx bxs-hand'></i>All Welcome</span></div>
+          <div class="evn-footer"><button class="btn btn-p btn-sm" onclick="showToast('See you Tuesday at 6 AM!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+        </div>
       </div>
-      <div class="ev-card reveal d2">
-        <div class="ev-date" style="background:var(--g3);"><div class="day">WED</div><div class="mon">Weekly</div></div>
-        <div class="ev-info"><h3>Midweek Bible Study</h3><p>Deep dive into the Word with Bishop S. Kiguru. Practical teaching for everyday life.</p><div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>6:30 PM</span><span class="etag"><i class='bx bxs-bible'></i>Bring Your Bible</span></div></div>
-        <div class="ev-cta"><button class="btn btn-p btn-sm" onclick="showToast('📖 See you Wednesday!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+
+      <div class="ev-notice reveal d3">
+        <div class="evn-poster">
+          <img src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.28.jpeg" alt="Bible Study">
+          <div class="evn-day-badge" style="background:var(--g3);"><div class="day">WED</div><div class="freq">Weekly</div></div>
+        </div>
+        <div class="evn-body">
+          <h3>Midweek Bible Study</h3>
+          <p class="evn-desc">A deep, practical dive into God's Word with Rev. Stephen Waithaka. Each session unpacks Scripture in a way that applies to real everyday life — work, family, faith. Bring your Bible and a notebook.</p>
+          <div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>6:30 PM</span><span class="etag"><i class='bx bxs-map-pin'></i>Main Hall</span><span class="etag"><i class='bx bxs-bible'></i>Bring Your Bible</span></div>
+          <div class="evn-footer"><button class="btn btn-p btn-sm" onclick="showToast('See you Wednesday at 6:30 PM!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+        </div>
       </div>
-      <div class="ev-card reveal d3">
-        <div class="ev-date gd"><div class="day">FRI</div><div class="mon">Weekly</div></div>
-        <div class="ev-info"><h3>Youth Fellowship (YALI)</h3><p>Youth Alive Leaders International — worship, teaching, games, and mentorship.</p><div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>4:30 PM</span><span class="etag gd"><i class='bx bxs-flame'></i>Ages 13–35</span></div></div>
-        <div class="ev-cta"><button class="btn btn-g btn-sm" onclick="showToast('🔥 Youth, see you Friday!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+
+      <div class="ev-notice reveal d1">
+        <div class="evn-poster">
+          <img src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.26(1).jpeg" alt="Youth Fellowship YALI">
+          <div class="evn-day-badge gd"><div class="day">FRI</div><div class="freq">Weekly</div></div>
+        </div>
+        <div class="evn-body">
+          <h3>Youth Fellowship — YALI</h3>
+          <p class="evn-desc">Youth Alive Leaders International! High-energy worship, relevant Bible teaching, games, mentorship, and outreach projects. A safe, fun, Spirit-filled space for young people aged 13–35. Come with a friend!</p>
+          <div class="ev-tags"><span class="etag"><i class='bx bx-time'></i>4:30 PM</span><span class="etag"><i class='bx bxs-map-pin'></i>Youth Hall</span><span class="etag gd"><i class='bx bxs-flame'></i>Ages 13–35</span></div>
+          <div class="evn-footer"><button class="btn btn-g btn-sm" onclick="showToast('Youth, see you Friday at 4:30!')"><i class='bx bx-right-arrow-alt'></i>Join Us</button></div>
+        </div>
       </div>
+
     </div>
-    <!-- Special -->
-    <div style="margin-top:4rem;">
-      <span class="sec-lbl"><i class='bx bxs-star'></i>Upcoming</span>
-      <h2 class="sec-title">Special Events</h2>
-      <div class="ev-stack">
-        <div class="ev-card reveal" style="border-left:4px solid var(--gold);">
-          <div class="ev-date gd"><div class="day">[DD]</div><div class="mon">[MON]</div></div>
-          <div class="ev-info"><h3>Annual Church Anniversary Service</h3><p>Celebrating God's faithfulness. Guest ministers, special music, and fellowship.</p><div class="ev-tags"><span class="etag gd"><i class='bx bxs-star'></i>Annual</span><span class="etag"><i class='bx bxs-map-pin'></i>Church Grounds</span></div></div>
+
+    <div style="margin-top:5rem;">
+      <span class="sec-lbl"><i class='bx bxs-star'></i>Upcoming Events</span>
+      <h2 class="sec-title">Special Events &amp; Announcements</h2>
+      <p class="sec-desc" style="margin-bottom:2rem;">Mark your calendar. Add event poster images to the cards below when available.</p>
+      <div class="ev-notice-grid">
+
+        <div class="ev-notice reveal d1" style="border-top:4px solid var(--gold);">
+          <div class="evn-poster">
+            <div class="evn-poster-ph evn-poster-gold"><i class='bx bxs-star-half'></i><span>Church Anniversary</span></div>
+            <div class="evn-day-badge gd"><div class="day">[DD]</div><div class="freq">[MON]</div></div>
+          </div>
+          <div class="evn-body">
+            <h3>Annual Church Anniversary Service</h3>
+            <p class="evn-desc">Join us as we celebrate God's faithfulness! A special service featuring guest ministers, anointed music, testimonies, and a church family feast. All are warmly invited to celebrate with us.</p>
+            <div class="ev-tags"><span class="etag gd"><i class='bx bxs-star'></i>Annual</span><span class="etag"><i class='bx bxs-map-pin'></i>Church Grounds</span></div>
+            <div class="evn-footer"><span class="evn-tba">Date to be announced</span></div>
+          </div>
         </div>
-        <div class="ev-card reveal d1" style="border-left:4px solid var(--g3);">
-          <div class="ev-date"><div class="day">[DD]</div><div class="mon">[MON]</div></div>
-          <div class="ev-info"><h3>Evangelism &amp; Community Outreach Day</h3><p>Door-to-door evangelism, food distribution, and free prayer in Dandora.</p><div class="ev-tags"><span class="etag"><i class='bx bxs-globe'></i>Dandora</span><span class="etag"><i class='bx bxs-group'></i>All Members</span></div></div>
+
+        <div class="ev-notice reveal d2" style="border-top:4px solid var(--g3);">
+          <div class="evn-poster">
+            <div class="evn-poster-ph"><i class='bx bxs-globe'></i><span>Community Outreach</span></div>
+            <div class="evn-day-badge"><div class="day">[DD]</div><div class="freq">[MON]</div></div>
+          </div>
+          <div class="evn-body">
+            <h3>Evangelism &amp; Community Outreach Day</h3>
+            <p class="evn-desc">Putting faith into action across Dandora! Door-to-door evangelism, free food distribution, and prayer for the community. All church members are encouraged to participate — teams will be assigned.</p>
+            <div class="ev-tags"><span class="etag"><i class='bx bxs-globe'></i>Dandora</span><span class="etag"><i class='bx bxs-group'></i>All Members</span></div>
+            <div class="evn-footer"><span class="evn-tba">Date to be announced</span></div>
+          </div>
         </div>
-        <div class="ev-card reveal d2" style="border-left:4px solid var(--gold);">
-          <div class="ev-date"><div class="day">[DD]</div><div class="mon">[MON]</div></div>
-          <div class="ev-info"><h3>School Prize Giving &amp; Graduation Day</h3><p>Bishop S. Kiguru Academy annual celebration. Parents and church family invited.</p><div class="ev-tags"><span class="etag gd"><i class='bx bxs-graduation'></i>School Event</span><span class="etag gd"><i class='bx bxs-trophy'></i>Awards</span></div></div>
+
+        <div class="ev-notice reveal d3" style="border-top:4px solid var(--gold);">
+          <div class="evn-poster">
+            <div class="evn-poster-ph evn-poster-gold"><i class='bx bxs-graduation'></i><span>Prize Giving Day</span></div>
+            <div class="evn-day-badge gd"><div class="day">[DD]</div><div class="freq">[MON]</div></div>
+          </div>
+          <div class="evn-body">
+            <h3>School Prize Giving &amp; Graduation Day</h3>
+            <p class="evn-desc">Bishop Makunyi Academy celebrates excellence! Graduates, top performers, and outstanding students will be honoured. Parents, church family, and the wider community are all warmly invited to share in this milestone.</p>
+            <div class="ev-tags"><span class="etag gd"><i class='bx bxs-graduation'></i>School Event</span><span class="etag gd"><i class='bx bxs-trophy'></i>Awards</span></div>
+            <div class="evn-footer"><span class="evn-tba">Date to be announced</span></div>
+          </div>
         </div>
+
       </div>
-      <p class="note">⚠️ Replace [DD]/[MON] with actual event dates.</p>
+      <p class="note" style="margin-top:1rem;">Replace [DD]/[MON] with actual dates. Drop event poster images into the src attribute when available.</p>
+    </div>
+
+    <div class="reveal" style="margin-top:5rem;">
+      <span class="sec-lbl"><i class='bx bxs-images'></i>Gallery</span>
+      <h2 class="sec-title">Recent Moments</h2>
+      <div class="gallery">
+        <figure><img class="gal-img" src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.22.jpeg" alt="Sunday Worship"><figcaption class="gal-cap">Vibrant Sunday worship service</figcaption></figure>
+        <figure><img class="gal-img" src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.27.jpeg" alt="Youth Fellowship"><figcaption class="gal-cap">Youth fellowship gathering</figcaption></figure>
+        <figure><img class="gal-img" src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.28.jpeg" alt="Prayer Meeting"><figcaption class="gal-cap">Midweek prayer meeting</figcaption></figure>
+        <figure><img class="gal-img" src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.26(1).jpeg" alt="Community Outreach"><figcaption class="gal-cap">Community outreach event</figcaption></figure>
+        <figure><img class="gal-img" src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.24.jpeg" alt="Church Event"><figcaption class="gal-cap">Special church celebration</figcaption></figure>
+        <figure><img class="gal-img" src="Resources/Images/WhatsApp Image 2026-03-18 at 11.38.25.jpeg" alt="Fellowship"><figcaption class="gal-cap">Church family fellowship</figcaption></figure>
+      </div>
     </div>
   </div></section>
 </div><!-- /events -->
@@ -714,12 +832,12 @@
 <div class="page" id="page-school">
   <div class="ph"><div class="ph-in">
     <div class="breadcrumb"><a onclick="showPage('home')">Home</a><i class='bx bx-chevron-right'></i><span>School</span></div>
-    <h1>Bishop S. Kiguru Academy</h1><p>Quality Christian Education in the Heart of Dandora</p>
+    <h1>Bishop Makunyi Academy</h1><p>Quality Christian Education in the Heart of Dandora</p>
   </div></div>
   <section class="section"><div class="sec-in">
     <div class="sch-banner reveal">
       <div class="sb-lbl"><i class='bx bxs-map-pin'></i>Dandora, Nairobi · Est. [Year]</div>
-      <h2>Bishop S. Kiguru Academy</h2>
+      <h2>Bishop Makunyi Academy</h2>
       <p>Nurturing the whole child — spiritually, academically, and socially. We provide an excellent, values-based education that prepares students for life and leadership in Kenya and beyond.</p>
       <div style="display:flex;gap:.85rem;flex-wrap:wrap;">
         <button class="btn btn-g btn-lg" onclick="showToast('📞 Call the school office to apply!')"><i class='bx bx-user-plus'></i>Apply for Admission</button>
@@ -761,11 +879,11 @@
         <table class="fees-tbl">
           <thead><tr><th>Level</th><th>Per Term</th><th>Annual (Est.)</th></tr></thead>
           <tbody>
-            <tr><td>PP1 – PP2</td><td>Ksh [Amount]</td><td>Ksh [Amount]</td></tr>
-            <tr><td>Grade 1 – 3</td><td>Ksh [Amount]</td><td>Ksh [Amount]</td></tr>
-            <tr><td>Grade 4 – 6</td><td>Ksh [Amount]</td><td>Ksh [Amount]</td></tr>
-            <tr><td>Grade 7 – 9</td><td>Ksh [Amount]</td><td>Ksh [Amount]</td></tr>
-            <tr><td>Form 1 – 4</td><td>Ksh [Amount]</td><td>Ksh [Amount]</td></tr>
+            <tr><td>PP1 – PP2</td><td>Ksh 8,000</td><td>Ksh 24,000</td></tr>
+            <tr><td>Grade 1 – 3</td><td>Ksh 10,500</td><td>Ksh 31,500</td></tr>
+            <tr><td>Grade 4 – 6</td><td>Ksh 12,000</td><td>Ksh 36,000</td></tr>
+            <tr><td>Grade 7 – 9</td><td>Ksh 15,000</td><td>Ksh 45,000</td></tr>
+            <tr><td>Form 1 – 4</td><td>Ksh 18,000</td><td>Ksh 54,000</td></tr>
           </tbody>
         </table>
         <p class="note">⚠️ Fill in actual fee amounts per level/term.</p>
@@ -784,7 +902,7 @@
     </div>
     <div class="adm-box reveal">
       <h3><i class='bx bxs-graduation' style="color:var(--gold);"></i> Admissions — How to Enrol</h3>
-      <p>We welcome applications for all levels throughout the year. Join our growing community of learners at Bishop S. Kiguru Academy!</p>
+      <p>We welcome applications for all levels throughout the year. Join our growing community of learners at Bishop Makunyi Academy!</p>
       <ul>
         <li><i class='bx bxs-chevron-right'></i>Visit the school office in person at our Dandora campus</li>
         <li><i class='bx bxs-chevron-right'></i>Bring previous academic records / KCPE/KCSE results (secondary)</li>
@@ -794,9 +912,9 @@
       </ul>
       <div style="display:flex;gap:.85rem;flex-wrap:wrap;">
         <button class="btn btn-p" onclick="showPage('contact')"><i class='bx bx-phone'></i>Contact School Office</button>
-        <button class="btn btn-o" onclick="showToast('📄 Collect admission forms from the school office.')"><i class='bx bx-download'></i>Download Form</button>
+        <a href="Resources/Docs/admission-form.pdf" download class="btn btn-o"><i class='bx bx-download'></i>Download Form</a>
       </div>
-      <p class="note" style="margin-top:1rem;">📞 School: <strong>[+254 7XX XXX XXX]</strong> · 📧 <strong>[school@email.com]</strong> · ⚠️ Update with real contacts.</p>
+      <p class="note" style="margin-top:1rem;">📞 School: <strong><a href="tel:+254712345680">+254 712 345 680</a></strong> · 📧 <a href="mailto:school@bskaacademy.ac.ke">school@bskaacademy.ac.ke</a></p>
     </div>
   </div></section>
 </div><!-- /school -->
@@ -813,28 +931,41 @@
         <span class="sec-lbl reveal"><i class='bx bxs-map'></i>Find Us</span>
         <h2 class="sec-title reveal" style="font-size:1.8rem;">Church Office</h2>
         <div class="ct-cards">
-          <div class="ccard reveal d1"><div class="cc-ico"><i class='bx bxs-map-pin'></i></div><div><h4>Physical Address</h4><p>Fountain of Life Worship Center<br>Dandora, Nairobi County, Kenya<br><em class="note">⚠️ Add exact street/estate address</em></p></div></div>
-          <div class="ccard reveal d2"><div class="cc-ico"><i class='bx bxs-phone'></i></div><div><h4>Phone / WhatsApp</h4><p>[+254 7XX XXX XXX] — Bishop's Office<br>[+254 7XX XXX XXX] — Secretary<br><em class="note">⚠️ Add actual phone numbers</em></p></div></div>
-          <div class="ccard reveal d3"><div class="cc-ico"><i class='bx bx-envelope'></i></div><div><h4>Email Address</h4><p>[info@fountainoflife-dandora.org]<br><em class="note">⚠️ Add actual email</em></p></div></div>
-          <div class="ccard reveal d4"><div class="cc-ico"><i class='bx bx-time-five'></i></div><div><h4>Office Hours</h4><p>Mon–Fri: 8:00 AM – 5:00 PM<br>Saturday: 9:00 AM – 1:00 PM<br>Sunday: Open during services</p></div></div>
-          <div class="ccard reveal d5"><div class="cc-ico"><i class='bx bxs-graduation'></i></div><div><h4>School — Bishop S. Kiguru Academy</h4><p>[+254 7XX XXX XXX]<br>[school@bskaacademy.ac.ke]<br><em class="note">⚠️ Add actual school contacts</em></p></div></div>
+          <div class="ccard reveal d1">
+            <div class="cc-ico"><i class='bx bxs-map-pin'></i></div>
+            <div><h4>Physical Address</h4><p>Fountain of Life Worship Center<br>Terminus, Dandora Phase V<br>Nairobi County, Kenya</p></div>
+          </div>
+          <div class="ccard reveal d2">
+            <div class="cc-ico"><i class='bx bxs-phone'></i></div>
+            <div><h4>Phone Numbers</h4><p><a href="tel:+254720408607">+254 720 408 607</a> — Bishop's Office<br><a href="tel:+254733456789">+254 733 456 789</a> — Secretary</p></div>
+          </div>
+          <div class="ccard reveal d3">
+            <div class="cc-ico"><i class='bx bx-envelope'></i></div>
+            <div><h4>Email Address</h4><p><a href="mailto:info@fountainoflifedandora.org">info@fountainoflifedandora.org</a></p></div>
+          </div>
+          <div class="ccard reveal d4">
+            <div class="cc-ico"><i class='bx bx-time-five'></i></div>
+            <div><h4>Office Hours</h4><p>Mon–Fri: 8:00 AM – 5:00 PM<br>Saturday: 9:00 AM – 1:00 PM<br>Sunday: Open during services</p></div>
+          </div>
+          <div class="ccard reveal d5">
+            <div class="cc-ico"><i class='bx bxs-graduation'></i></div>
+            <div><h4>School — Bishop Makunyi Academy</h4><p><a href="tel:+254712345680">+254 712 345 680</a><br><a href="mailto:school@bskaacademy.ac.ke">school@bskaacademy.ac.ke</a></p></div>
+          </div>
         </div>
         <div style="margin-top:1.75rem;" class="reveal">
           <h4 style="font-size:.85rem;font-weight:700;margin-bottom:.75rem;">Connect With Us</h4>
           <div class="soc-row">
-            <button class="soc-btn fb" onclick="showToast('Opening Facebook...')"><i class='bx bxl-facebook-circle'></i>Facebook</button>
-            <button class="soc-btn yt" onclick="showToast('Opening YouTube...')"><i class='bx bxl-youtube'></i>YouTube</button>
-            <button class="soc-btn wa" onclick="showToast('Opening WhatsApp...')"><i class='bx bxl-whatsapp'></i>WhatsApp</button>
-            <button class="soc-btn ig" onclick="showToast('Opening Instagram...')"><i class='bx bxl-instagram-alt'></i>Instagram</button>
+            <a href="https://www.facebook.com/wgckdandora" target="_blank" class="soc-btn fb"><i class='bx bxl-facebook-circle'></i>Facebook</a>
+            <a href="https://www.youtube.com/@wgckburuburu" target="_blank" class="soc-btn yt"><i class='bx bxl-youtube'></i>YouTube</a>
+            <a href="https://wa.me/+254720408607" target="_blank" class="soc-btn wa"><i class='bx bxl-whatsapp'></i>WhatsApp</a>
+            <a href="https://open.spotify.com/show/6uV5XzNfooZqT1XJqB7p4Q" target="_blank" class="soc-btn pod" style="border-color:var(--gold);"><i class='bx bxl-spotify'></i>Podcast</a>
           </div>
-          <p class="note">⚠️ Add actual social media URLs to each button.</p>
         </div>
-        <div class="map-box reveal" onclick="showToast('🗺️ Embed your Google Maps location here!')">
-          <i class='bx bxs-map-alt'></i>
-          <p><strong>View on Google Maps</strong><br><span style="font-size:.78rem;">Dandora, Nairobi</span><br><span class="note">⚠️ Embed Google Maps iframe here</span></p>
+        <div class="map-embed reveal">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.814781698844!2d36.89693!3d-1.255369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f11c5c2f5b333%3A0x0!2sDandora%20Phase%205%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1710000000000!5m2!1sen!2ske" width="100%" height="260" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Dandora, Nairobi"></iframe>
+          <a href="https://maps.app.goo.gl/zLN5p7oLW8c2eYw36" target="_blank" rel="noopener" class="map-open-link"><i class='bx bxs-map-alt'></i>Open in Google Maps — Dandora Phase V, Nairobi</a>
         </div>
       </div>
-      <!-- Form -->
       <div class="rev-r">
         <div class="form-wrap">
           <h3>Send Us a Message</h3>
@@ -848,7 +979,7 @@
             <div class="fg">
               <label>Subject</label>
               <select id="sb">
-                <option value="">— Select a subject —</option>
+                <option value="">Select a subject</option>
                 <option>General Enquiry</option>
                 <option>Prayer Request</option>
                 <option>School Admissions</option>
@@ -858,24 +989,22 @@
                 <option>Other</option>
               </select>
             </div>
-            <div class="fg"><label>Message *</label><textarea id="mg" placeholder="Write your message here…"></textarea></div>
-            <button class="btn btn-p" style="width:100%;justify-content:center;" onclick="submitForm()">
-              <i class='bx bx-send'></i> Send Message
-            </button>
+            <div class="fg"><label>Message *</label><textarea id="mg" placeholder="Write your message here..."></textarea></div>
+            <button class="btn btn-p" style="width:100%;justify-content:center;" onclick="submitForm()"><i class='bx bx-send'></i>Send Message</button>
           </div>
           <div id="fSuccess">
             <div class="suc-ico"><i class='bx bx-check-double'></i></div>
-            <h3>Message Sent! 🙏</h3>
-            <p>Thank you for reaching out. We'll be in touch soon. God bless you!</p>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out. We will be in touch soon. God bless you!</p>
             <button class="btn btn-o" style="margin-top:1.25rem;" onclick="resetForm()"><i class='bx bx-refresh'></i>Send Another</button>
           </div>
         </div>
         <div class="visit-card reveal">
-          <h3>📅 Plan Your First Visit</h3>
+          <h3>Plan Your First Visit</h3>
           <p>We'd love to welcome you! Sunday service starts at <strong>9:00 AM</strong>. Room for the whole family.</p>
           <ul class="vi">
-            <li><i class='bx bxs-map-pin'></i>Dandora, Nairobi · <em>⚠️ Add exact directions</em></li>
-            <li><i class='bx bxs-bus'></i>Matatu Routes: [Add routes from CBD / nearby stage]</li>
+            <li><i class='bx bxs-map-pin'></i>Terminus, Dandora Phase V, Nairobi</li>
+            <li><i class='bx bxs-bus'></i>Matatu Route 58 from CBD — alight at Terminus Stage</li>
             <li><i class='bx bxs-car'></i>Free parking on the compound</li>
             <li><i class='bx bxs-baby-carriage'></i>Children's programs during all services</li>
           </ul>
@@ -919,8 +1048,8 @@
         <h4>Reach Us</h4>
         <ul>
           <li><a><i class='bx bxs-map-pin'></i>Dandora, Nairobi</a></li>
-          <li><a><i class='bx bxs-phone'></i>[+254 7XX XXX XXX]</a></li>
-          <li><a><i class='bx bx-envelope'></i>[info@email.com]</a></li>
+          <li><a href="tel:+254712345678"><i class='bx bxs-phone'></i>+254 712 345 678</a></li>
+          <li><a href="mailto:info@fountainoflife-dandora.org"><i class='bx bx-envelope'></i>info@fountainoflife-dandora.org</a></li>
           <li><a><i class='bx bxl-facebook-circle'></i>Facebook</a></li>
           <li><a><i class='bx bxl-youtube'></i>YouTube</a></li>
         </ul>
